@@ -1,0 +1,59 @@
+# Register user
+POST http://localhost:8000/api/v1/dj-rest-auth/registration/
+Content-Type: application/json
+
+{
+  "email": "linda.kariuki@example.com",
+  "password1": "StrongPass123!",
+  "password2": "StrongPass123!",
+  "first_name": "Linda",
+  "last_name": "Kariuki"
+}
+
+###
+# Login to get token (replace with your auth endpoint if different)
+POST http://localhost:8000/api/v1//dj-rest-auth/login/
+Content-Type: application/json
+
+{
+  "email": "linda.kariuki@example.com",
+  "password": "StrongPass123!"
+}
+
+###
+# Create profile (multipart/form-data with image). 
+# Replace {{TOKEN}} with the token returned by the login response (e.g. "Token abc...").
+POST http://localhost:8000/api/v1/profiles/ HTTP/1.1
+Authorization: Token f619ad54262b6167de441790f534c31d1be42086
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="skill"
+
+Digital Marketing
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="experience"
+
+4 years
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="location"
+
+Nakuru, Kenya
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="bio"
+
+Helping brands grow online through creative campaigns and strategic content marketing.
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="about"
+
+Linda has a strong track record of helping businesses increase their online visibility and engagement. She specializes in social media campaigns, SEO, and content strategy.
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="services"
+
+["Social Media Marketing","SEO Optimization","Content Strategy","Email Campaigns"]
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="profile_image"; filename="linda_kariuki.jpeg"
+Content-Type: image/jpeg
+
+< ./linda_kariuki.jpeg
+------WebKitFormBoundary7MA4YWxkTrZu0gW--

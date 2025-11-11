@@ -4,6 +4,30 @@ from django.conf import settings
 from dj_rest_auth.serializers import PasswordResetSerializer
 from django.contrib.auth import get_user_model
 from .models import Profile, Rating, Review
+from dj_rest_auth.serializers import LoginSerializer
+
+class CustomLoginSerializer(LoginSerializer):
+    username = None  # disable username completely
+    email = serializers.EmailField(required=True)
+    
+    def validate(self, attrs):
+        # Replace username with email for authentication
+        email = attrs.get('email')
+        password = attrs.get('password')
+
+        if email and password:
+            user = self.authenticate(email=email, password=password)
+        else:
+            msg = 'Must include "email" and "password".'
+            raise serializers.ValidationError(msg, code='authorization')
+
+        if user:
+            if not user.is_active:
+                raise serializers.ValidationError('User account is disabled.')
+            attrs['user'] = user
+            return attrs
+
+        raise serializers.ValidationError('Unable to log in with provided credentials.')
 
 class CustomRegisterSerializer(RegisterSerializer):
     username = None  # Disable username input

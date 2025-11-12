@@ -5,6 +5,8 @@ from dj_rest_auth.serializers import PasswordResetSerializer
 from django.contrib.auth import get_user_model
 from .models import Profile, Rating, Review
 from dj_rest_auth.serializers import LoginSerializer
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
 
 class CustomLoginSerializer(LoginSerializer):
     username = None  # disable username completely

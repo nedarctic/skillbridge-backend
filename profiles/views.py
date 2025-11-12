@@ -18,7 +18,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_serializer_class(self):
         if self.action in ['create', 'update', 'partial_update']:

@@ -15,6 +15,8 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+REST_USE_JWT = True
+TOKEN_MODEL = None
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -180,9 +182,6 @@ REST_AUTH = {
     "REGISTER_SERIALIZER": "profiles.serializers.CustomRegisterSerializer",
     "LOGIN_SERIALIZER": "profiles.serializers.CustomLoginSerializer",
 }
-
-REST_USE_JWT = True
-TOKEN_MODEL = None
 
 SITE_ID = 1
 SITE_NAME = "SkillBridge App"

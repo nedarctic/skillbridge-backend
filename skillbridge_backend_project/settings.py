@@ -41,8 +41,9 @@ INSTALLED_APPS = [
     
     # 3rd party
     'rest_framework',
+    'rest_framework_simplejwt',
     'corsheaders',
-    'rest_framework.authtoken',
+    # 'rest_framework.authtoken',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -151,7 +152,8 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ],
 }

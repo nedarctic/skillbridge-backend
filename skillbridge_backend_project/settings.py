@@ -15,9 +15,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-REST_USE_JWT = True
-DJ_REST_AUTH_TOKEN_MODEL = None
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
@@ -43,9 +40,9 @@ INSTALLED_APPS = [
     
     # 3rd party
     'rest_framework',
-    'rest_framework_simplejwt',
     'corsheaders',
-    # 'rest_framework.authtoken',
+    'rest_framework_simplejwt',
+    'rest_framework.authtoken',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -168,7 +165,6 @@ REST_FRAMEWORK = {
     ],
 }
 
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'mail.justuskimtai.com'
 EMAIL_PORT = 465
@@ -183,6 +179,9 @@ REST_AUTH = {
     "LOGIN_SERIALIZER": "profiles.serializers.CustomLoginSerializer",
 }
 
+REST_USE_JWT = True
+TOKEN_MODEL = None
+
 SITE_ID = 1
 SITE_NAME = "SkillBridge App"
 
@@ -190,8 +189,8 @@ FRONTEND_URL = "http://localhost:3000"
 
 AUTH_USER_MODEL = 'profiles.CustomUser'
 
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_LOGIN_METHODS = {'email'}
+ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*']
+
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_EMAIL_VERIFICATION = 'optional'  # or 'mandatory' if you want email confirmation

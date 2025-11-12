@@ -181,6 +181,9 @@ REST_AUTH = {
     "LOGIN_SERIALIZER": "profiles.serializers.CustomLoginSerializer",
 }
 
+REST_USE_JWT = True
+TOKEN_MODEL = None
+
 SITE_ID = 1
 SITE_NAME = "SkillBridge App"
 

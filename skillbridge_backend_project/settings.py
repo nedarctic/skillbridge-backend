@@ -175,6 +175,7 @@ DEFAULT_FROM_EMAIL = 'admin@justuskimtai.com'
 
 REST_AUTH = {
     "PASSWORD_RESET_SERIALIZER": "profiles.serializers.CustomPasswordResetSerializer",
+    "PASSWORD_RESET_CONFIRM_SERIALIZER": "profiles.serializers.CustomPasswordResetConfirmSerializer",
     "REGISTER_SERIALIZER": "profiles.serializers.CustomRegisterSerializer",
     "LOGIN_SERIALIZER": "profiles.serializers.CustomLoginSerializer",
 }

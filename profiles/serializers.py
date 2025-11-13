@@ -11,6 +11,12 @@ from django.utils.encoding import force_str
 from dj_rest_auth.serializers import PasswordResetConfirmSerializer as _PasswordResetConfirmSerializer
 from allauth.account.forms import default_token_generator
 
+
+from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth.tokens import default_token_generator
+from django.conf import settings
+from django.core.mail import send_mail
+
 User = get_user_model()
 
 class CustomPasswordResetConfirmSerializer(_PasswordResetConfirmSerializer):
@@ -79,12 +85,60 @@ class CustomRegisterSerializer(RegisterSerializer):
         user.save()
         return user
 
+User = get_user_model()
+
 class CustomPasswordResetSerializer(PasswordResetSerializer):
+
+    token_generator = default_token_generator  # Add this line
+
     def get_email_options(self):
-        def custom_url_generator(request, user, temp_key):
+        def custom_url_generator(request, user, token):
             uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
-            return f"{settings.FRONTEND_URL}/reset/confirm?uidb64={uidb64}&token={temp_key}"
-        return {"url_generator": custom_url_generator}
+            return f"{settings.FRONTEND_URL}/reset/confirm?uidb64={uidb64}&token={token}"
+
+        return {
+            "url_generator": custom_url_generator,
+            "extra_email_context": {
+                "site_name": getattr(settings, "SITE_NAME", "SkillBridge"),
+            },
+        }
+
+    def save(self, **kwargs):
+        request = self.context.get("request")
+        # Use Django's PasswordResetForm to get users
+        reset_form = PasswordResetForm(data=self.validated_data)
+        if not reset_form.is_valid():
+            return
+
+        for user in reset_form.get_users(self.validated_data["email"]):
+            token = self.token_generator.make_token(user)  # Now works
+            reset_url = self.get_email_options()["url_generator"](request, user, token)
+            site_name = self.get_email_options()["extra_email_context"]["site_name"]
+
+            subject = f"Reset your password on {site_name}"
+            message = f"""
+                Hi {user.get_full_name() or user.email},
+
+                You requested a password reset on {site_name}.
+
+                Click the link below to reset your password:
+
+                {reset_url}
+
+                If you did not request this, please ignore this email.
+
+                Thanks,
+                {site_name} Team
+            """
+
+            send_mail(
+                subject=subject,
+                message=message,
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[user.email],
+                fail_silently=False,
+            )
+
         
 class UserSerializer(serializers.ModelSerializer):
     class Meta:

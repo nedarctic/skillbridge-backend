@@ -184,7 +184,7 @@ REST_USE_JWT = True
 TOKEN_MODEL = None
 
 SITE_ID = 1
-SITE_NAME = "SkillBridge App"
+SITE_NAME = "SkillBridge"
 
 FRONTEND_URL = "http://localhost:3000"
 

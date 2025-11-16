@@ -20,5 +20,19 @@ urlpatterns = [
     path('api/v1/dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')),
 ]
 
+# Add custom Google social login view
+from dj_rest_auth.registration.views import SocialLoginView
+from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+from allauth.socialaccount.providers.oauth2.client import OAuth2Client
+
+class GoogleLogin(SocialLoginView):
+    adapter_class = GoogleOAuth2Adapter
+    client_class = OAuth2Client
+
+urlpatterns += [
+    path("api/v1/google/", GoogleLogin.as_view(), name="google_login"),
+]
+
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

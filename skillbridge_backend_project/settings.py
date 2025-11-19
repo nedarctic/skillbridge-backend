@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -93,8 +93,12 @@ WSGI_APPLICATION = 'skillbridge_backend_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': os.getenv("POSTGRESQL_DB_ENGINE"),
+        'NAME': os.getenv("POSTGRESQL_DB_NAME"),
+        'USER': os.getenv("POSTGRESQL_DB_USER"),
+        'HOST': os.getenv("POSTGRESQL_DB_HOST"),
+        'PASSWORD': os.getenv("POSTGRESQL_DB_PASSWORD"),
+        'PORT': os.getenv("POSTGRESQL_DB_PASSWORD"),        
     }
 }
 
@@ -143,8 +147,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # CORS settings
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
-
-import os
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

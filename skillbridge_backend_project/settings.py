@@ -98,16 +98,23 @@ WSGI_APPLICATION = 'skillbridge_backend_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.getenv("POSTGRES_NAME"),
+#         'USER': os.getenv("POSTGRES_USER"),
+#         'HOST': os.getenv("POSTGRES_HOST"),
+#         'PASSWORD': os.getenv("POSTGRES_PASSWORD"),
+#         'PORT': os.getenv("POSTGRES_PORT"),        
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv("POSTGRES_NAME"),
-        'USER': os.getenv("POSTGRES_USER"),
-        'HOST': os.getenv("POSTGRES_HOST"),
-        'PASSWORD': os.getenv("POSTGRES_PASSWORD"),
-        'PORT': os.getenv("POSTGRES_PORT"),        
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
-}
+ }
 
 
 # Password validation

@@ -32,7 +32,8 @@ SECRET_KEY = 'django-insecure-h1-#e-dl0@sb#rul)rm@*td4loe=f*)c*69oye8eu@yba=jfnp
 DEBUG = os.getenv('DEBUG')
 
 ALLOWED_HOSTS = [
-    'skillbridgeapp.justuskimtai.com'
+    'skillbridgeapp.justuskimtai.com',
+    'justuskimtai.com',
 ]
 
 

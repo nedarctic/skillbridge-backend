@@ -29,13 +29,9 @@ load_dotenv(dotenv_path=env_path)
 SECRET_KEY = 'django-insecure-h1-#e-dl0@sb#rul)rm@*td4loe=f*)c*69oye8eu@yba=jfnp'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG')
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = [
-    'skillbridgeapp.justuskimtai.com',
-    'justuskimtai.com',
-]
-
+ALLOWED_HOSTS = ['skillbridgeapp.justuskimtai.com', 'www.skillbridgeapp.justuskimtai.com', 'justuskimtai.com', 'www.justuskimtai.com', 'localhost', '127.0.0.1']
 
 # Application definition
 
@@ -68,6 +64,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -155,6 +152,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -162,8 +161,28 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # CORS settings
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "https://skillbridgeapp.justuskimtai.com",
+    "https://www.skillbridgeapp.justuskimtai.com",
+    "https://justuskimtai.com",
+    "https://www.justuskimtai.com",
+]
+
 CORS_ALLOW_CREDENTIALS = True
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://skillbridgeapp.justuskimtai.com",
+    "https://www.skillbridgeapp.justuskimtai.com",
+    "https://justuskimtai.com",
+    "https://www.justuskimtai.com",
+]
+
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = "None"
+SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_SAMESITE = "None"
+
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -190,8 +209,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'mail.justuskimtai.com'
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = 'admin@justuskimtai.com'
 
 REST_AUTH = {

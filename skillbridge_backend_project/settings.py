@@ -29,7 +29,7 @@ load_dotenv(dotenv_path=env_path)
 SECRET_KEY = 'django-insecure-h1-#e-dl0@sb#rul)rm@*td4loe=f*)c*69oye8eu@yba=jfnp'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG')
 
 ALLOWED_HOSTS = []
 
@@ -98,23 +98,23 @@ WSGI_APPLICATION = 'skillbridge_backend_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.getenv("POSTGRES_NAME"),
-#         'USER': os.getenv("POSTGRES_USER"),
-#         'HOST': os.getenv("POSTGRES_HOST"),
-#         'PASSWORD': os.getenv("POSTGRES_PASSWORD"),
-#         'PORT': os.getenv("POSTGRES_PORT"),        
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv("POSTGRES_NAME"),
+        'USER': os.getenv("POSTGRES_USER"),
+        'HOST': os.getenv("POSTGRES_HOST"),
+        'PASSWORD': os.getenv("POSTGRES_PASSWORD"),
+        'PORT': os.getenv("POSTGRES_PORT"),        
     }
- }
+}
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+#  }
 
 
 # Password validation
@@ -187,8 +187,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'mail.justuskimtai.com'
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
-EMAIL_HOST_USER = 'admin@justuskimtai.com'
-EMAIL_HOST_PASSWORD = 'adminpass123'
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = 'admin@justuskimtai.com'
 
 REST_AUTH = {

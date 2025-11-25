@@ -42,3 +42,7 @@ dist/
 
 # --- Pip & Dependencies ---
 pip-wheel-metadata/
+
+# --- http files ---
+
+*.http

@@ -31,7 +31,9 @@ SECRET_KEY = 'django-insecure-h1-#e-dl0@sb#rul)rm@*td4loe=f*)c*69oye8eu@yba=jfnp
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'skillbridgeapp.justuskimtai.com'
+]
 
 
 # Application definition

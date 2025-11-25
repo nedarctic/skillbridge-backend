@@ -1,0 +1,49 @@
+# Register user
+POST http://localhost:8000/api/v1/dj-rest-auth/registration/
+Content-Type: application/json
+
+{
+  "email": "lilianwambui@example.com",
+  "password1": "StrongPass123!",
+  "password2": "StrongPass123!",
+  "first_name": "Lilian",
+  "last_name": "Wambui"
+}
+
+###
+# Create profile (multipart/form-data with image). 
+# Replace {{TOKEN}} with the token returned by the login response (e.g. "Token abc...").
+POST http://localhost:8000/api/v1/profiles/ HTTP/1.1
+Authorization: Token dbe19b8878903d12258b709fb90d1fecdf461443
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="skill"
+
+UI/UX Design
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="experience"
+
+3 years
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="location"
+
+Machakos, Kenya
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="bio"
+
+Designing intuitive digital experiences that users love to interact with.
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="about"
+
+Lilian is a UI/UX designer from Machakos dedicated to designing functional and delightful user experiences. She focuses on research, prototyping, and accessible design principles.
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="services"
+
+["UI Design", "UX Research", "Prototyping", "Wireframing"]
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="profile_image"; filename="linda_kariuki.jpeg"
+Content-Type: image/jpeg
+
+< ./Lilian Wambui.jpeg
+------WebKitFormBoundary7MA4YWxkTrZu0gW--

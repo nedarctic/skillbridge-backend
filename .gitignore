@@ -1,5 +1,44 @@
-venv
-.env
-.gitignore
+# --- OS & Editor Junk ---
+__pycache__/
+*.py[cod]
+*.swp
+*.swo
+.DS_Store
+
+# --- Virtual Environment ---
+venv/
+.env/
+*.env
+
+# --- Django Files ---
+db.sqlite3
+*.log
+
+# --- Media & Uploaded Files ---
+media/
+
+# --- Static Files (if collected in project) ---
+staticfiles/
+static/
+
+# --- User Uploads / Loose Images ---
 *.jpeg
-*.http
+*.jpg
+*.png
+*.gif
+*.svg
+
+# If you want to allow static icons, you can override using:
+# !static/icons/*.svg
+
+# --- Python ---
+*.egg-info/
+*.egg
+build/
+dist/
+
+# --- VSCode ---
+.vscode/
+
+# --- Pip & Dependencies ---
+pip-wheel-metadata/
